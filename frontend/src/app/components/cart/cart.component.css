@@ -1,0 +1,192 @@
+/* cart.component.css */
+
+/* ------------------------------
+   Genel Konteyner ve Başlık
+------------------------------ */
+.cart-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.cart-container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #222;
+  text-transform: uppercase;
+}
+
+/* ------------------------------
+   Loading Göstergesi
+------------------------------ */
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* ------------------------------
+   Ürün Listesi ve Özet
+------------------------------ */
+.cart-items {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+}
+
+/* Responsive: mobilde tek kolon */
+@media (max-width: 768px) {
+  .cart-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------
+   Her Bir Ürün Kartı
+------------------------------ */
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+/* Resim Stilleri */
+.item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Ürün Detayları (isim, özellik) */
+.item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.item-name {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+
+.item-attributes {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Adet Kontrol Butonları */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.quantity-controls button:hover {
+  background-color: #e0e0e0;
+}
+
+.quantity-controls input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  margin: 0 8px;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Fiyat ve Kaldır Butonu */
+.item-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-left: 15px;
+}
+
+.remove-button {
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.remove-button:hover {
+  color: #c0392b;
+}
+
+/* ------------------------------
+   Sepet Özeti ve Ödeme
+------------------------------ */
+.cart-summary {
+  background-color: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-summary h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #333;
+}
+
+.summary-row.total {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Checkout Butonu */
+.checkout-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #4285f4;
+  color: #fff;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+  background-color: #3367d6;
+}

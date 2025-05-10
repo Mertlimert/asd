@@ -1,0 +1,75 @@
+<div class="product-list-container">
+  <aside class="category-sidebar">
+    <h3>Categories</h3>
+    <ul class="category-list">
+      <li>
+        <a href="#" 
+           [class.active]="!selectedCategory" 
+           (click)="selectCategory(null, $event)">
+          All Products
+        </a>
+      </li>
+      <li *ngFor="let category of categories">
+        <a href="#" 
+           [class.active]="selectedCategory?.id === category.id"
+           (click)="selectCategory(category, $event)">
+          {{category.name}}
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <div class="product-list-content">
+    <h2>Products</h2>
+    
+    <!-- Arama, Filtreleme ve Sıralama Kontrolü -->
+    <div class="filter-controls">
+      <div class="search-box">
+        <input 
+          type="text" 
+          placeholder="Search products..." 
+          [(ngModel)]="searchTerm" 
+          (input)="onSearchChange()"
+          class="search-input"
+        >
+      </div>
+      
+      <div class="filter-box">
+        <select [(ngModel)]="selectedSeller" (change)="onSellerChange()" class="seller-select">
+          <option value="">All Sellers</option>
+          <option *ngFor="let seller of sellers" [value]="seller">{{seller}}</option>
+        </select>
+      </div>
+      
+      <div class="sort-box">
+        <select [(ngModel)]="sortOption" (change)="onSortChange()" class="sort-select">
+          <option value="nameAsc">Name (A-Z)</option>
+          <option value="nameDesc">Name (Z-A)</option>
+          <option value="priceAsc">Price (Low to High)</option>
+          <option value="priceDesc">Price (High to Low)</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="products-grid">
+      <div *ngFor="let product of filteredProducts" class="product-card" [routerLink]="['/product', product.id]">
+        <img [src]="product.image_url" [alt]="product.name">
+        <h3>{{product.name}}</h3>
+        <p class="seller-username">{{product.seller?.username}}</p>
+        <p>{{product.description}}</p>
+        <p class="price">${{product.price}}</p>
+        <button *ngIf="product.stock_quantity > 0" class="add-to-cart" (click)="addToCart(product); $event.stopPropagation()">
+          Add to Cart
+        </button>
+        <p *ngIf="product.stock_quantity === 0" class="out-of-stock">
+          Out of Stock
+        </p>
+      </div>
+
+      <!-- Ürün bulunamadı mesajı -->
+      <div *ngIf="filteredProducts.length === 0" class="no-products-message">
+        <p>No products found matching your criteria.</p>
+      </div>
+    </div>
+  </div>
+</div>

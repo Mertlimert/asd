@@ -1,0 +1,412 @@
+<div class="profile-container">
+  <h2>Hesabım</h2>
+
+  <!-- Yükleniyor göstergesi -->
+  <div class="loading-indicator" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Yükleniyor...</p>
+  </div>
+
+  <div class="account-content" *ngIf="currentUser && !loading">
+    <!-- Hesap navigasyonu -->
+    <div class="account-navigation">
+      <div class="nav-item" [class.active]="activeSection === 'profile'" (click)="setActiveSection('profile')">
+        <i class="fas fa-user"></i> Profil Bilgileri
+      </div>
+      <div class="nav-item" [class.active]="activeSection === 'orders'" (click)="setActiveSection('orders')">
+        <i class="fas fa-shopping-bag"></i> Siparişlerim
+      </div>
+      <div class="nav-item" [class.active]="activeSection === 'addresses'" (click)="setActiveSection('addresses')">
+        <i class="fas fa-map-marker-alt"></i> Adreslerim
+      </div>
+      <div class="nav-item" [class.active]="activeSection === 'payments'" (click)="setActiveSection('payments')">
+        <i class="fas fa-credit-card"></i> Ödeme Yöntemlerim
+      </div>
+      <div class="nav-item" [class.active]="activeSection === 'settings'" (click)="setActiveSection('settings')">
+        <i class="fas fa-cog"></i> Hesap Ayarları
+      </div>
+    </div>
+
+    <!-- İçerik bölümü -->
+    <div class="account-section">
+      <!-- Profil bölümü -->
+      <div *ngIf="activeSection === 'profile'">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <span>{{ currentUser.firstName?.charAt(0) || currentUser.username.charAt(0) }}</span>
+            </div>
+            <div class="profile-title">
+              <h3>{{ currentUser.firstName || '' }} {{ currentUser.lastName || '' }}</h3>
+              <p>{{ currentUser.email }}</p>
+              <p class="user-role">{{ currentUser.role }}</p>
+            </div>
+          </div>
+
+          <div class="profile-actions">
+            <button (click)="toggleEditMode()" class="btn">
+              {{ editMode ? 'İptal' : 'Profili Düzenle' }}
+            </button>
+            <button (click)="togglePasswordForm()" class="btn">
+              {{ showPasswordForm ? 'İptal' : 'Şifre Değiştir' }}
+            </button>
+          </div>
+
+          <!-- Profil Düzenleme Formu -->
+          <div class="profile-edit-form" *ngIf="editMode">
+            <h3>Profil Bilgilerini Düzenle</h3>
+            <div class="form-group">
+              <label for="username">Kullanıcı Adı</label>
+              <input type="text" id="username" [(ngModel)]="updatedUser.username">
+            </div>
+            <div class="form-group">
+              <label for="email">E-posta</label>
+              <input type="email" id="email" [(ngModel)]="updatedUser.email">
+            </div>
+            <div class="form-group">
+              <label for="firstName">Ad</label>
+              <input type="text" id="firstName" [(ngModel)]="updatedUser.firstName">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Soyad</label>
+              <input type="text" id="lastName" [(ngModel)]="updatedUser.lastName">
+            </div>
+            <button (click)="saveProfile()" class="btn btn-primary" [disabled]="loading">
+              {{ loading ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet' }}
+            </button>
+          </div>
+
+          <!-- Şifre Değiştirme Formu -->
+          <div class="password-change-form" *ngIf="showPasswordForm">
+            <h3>Şifre Değiştir</h3>
+            <div class="form-group">
+              <label for="currentPassword">Mevcut Şifre</label>
+              <input type="password" id="currentPassword" [(ngModel)]="passwordChange.currentPassword">
+            </div>
+            <div class="form-group">
+              <label for="newPassword">Yeni Şifre</label>
+              <input type="password" id="newPassword" [(ngModel)]="passwordChange.newPassword">
+              <small class="form-hint">En az 6 karakter olmalıdır</small>
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">Yeni Şifre (Tekrar)</label>
+              <input type="password" id="confirmPassword" [(ngModel)]="passwordChange.confirmPassword">
+            </div>
+            <button (click)="changePassword()" class="btn btn-primary" [disabled]="loading">
+              {{ loading ? 'İşleniyor...' : 'Şifreyi Değiştir' }}
+            </button>
+          </div>
+
+          <!-- Kullanıcı Detayları -->
+          <div class="profile-details" *ngIf="!editMode && !showPasswordForm">
+            <h3>Hesap Bilgileri</h3>
+            <div class="detail-item">
+              <span class="detail-label">Kullanıcı Adı:</span>
+              <span class="detail-value">{{ currentUser.username }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">E-posta:</span>
+              <span class="detail-value">{{ currentUser.email }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Ad:</span>
+              <span class="detail-value">{{ currentUser.firstName || '-' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Soyad:</span>
+              <span class="detail-value">{{ currentUser.lastName || '-' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Rol:</span>
+              <span class="detail-value">{{ currentUser.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Siparişler bölümü -->
+      <div *ngIf="activeSection === 'orders'">
+        <h3>Siparişlerim</h3>
+        <div class="orders-section">
+          <!-- Yükleniyor göstergesi -->
+          <div class="loading-indicator" *ngIf="loadingOrders">
+            <div class="spinner"></div>
+            <p>Siparişleriniz yükleniyor...</p>
+          </div>
+
+          <!-- Sipariş Listesi -->
+          <div class="orders-list" *ngIf="!loadingOrders && orders.length > 0">
+            <div class="order-card" *ngFor="let order of orders">
+              <div class="order-header">
+                <div class="order-number">
+                  <span>Sipariş #{{ order.orderNumber }}</span>
+                </div>
+                <div class="order-date">
+                  <span>{{ order.createdAt | date:'dd.MM.yyyy' }}</span>
+                </div>
+                <div class="order-status" [ngClass]="order.status.toLowerCase()">
+                  <span>{{ order.status }}</span>
+                </div>
+              </div>
+
+              <div class="order-details">
+                <div class="order-items">
+                  <div class="item" *ngFor="let item of order.items">
+                    <div class="item-image" *ngIf="item.productImage">
+                      <img [src]="item.productImage" [alt]="item.productName">
+                    </div>
+                    <div class="item-details">
+                      <p class="item-name">{{ item.productName }}</p>
+                      <p class="item-price">₺{{ item.price | number:'1.2-2' }} x {{ item.quantity }}</p>
+                      <p class="item-status" *ngIf="item.status">Durum: <span [ngClass]="item.status.toLowerCase()">{{ item.status }}</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="order-summary">
+                  <p><strong>Toplam:</strong> ₺{{ order.totalAmount | number:'1.2-2' }}</p>
+                  <p><strong>Durum:</strong> {{ order.status }}</p>
+                  <p><strong>Ödeme Durumu:</strong> {{ order.paymentStatus }}</p>
+                </div>
+              </div>
+
+              <div class="order-actions">
+                <button class="btn btn-sm" (click)="showOrderDetail(order)">Detaylar</button>
+                <button *ngIf="order.status === 'PENDING'" class="btn btn-sm btn-danger" (click)="cancelOrder(order.id)">İptal Et</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sipariş bulunamadı mesajı -->
+          <div class="no-orders-message" *ngIf="!loadingOrders && orders.length === 0">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Henüz siparişiniz bulunmuyor</p>
+            <a routerLink="/products" class="btn btn-primary">Alışverişe Başla</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adresler bölümü -->
+      <div *ngIf="activeSection === 'addresses'">
+        <h3>Adreslerim</h3>
+        <div class="addresses-section">
+          <!-- Adres formu -->
+          <div class="address-form-container" *ngIf="showingAddressForm">
+            <h4>{{ editingAddress ? 'Adresi Düzenle' : 'Yeni Adres Ekle' }}</h4>
+            <div class="address-form">
+              <div class="form-group">
+                <label for="addressName">Adres Başlığı</label>
+                <input type="text" id="addressName" [(ngModel)]="currentAddress.addressName" placeholder="Örn: Ev, İş">
+              </div>
+              <div class="form-group">
+                <label for="recipientName">Ad Soyad*</label>
+                <input type="text" id="recipientName" [(ngModel)]="currentAddress.recipientName" placeholder="Ad Soyad" required>
+              </div>
+              <div class="form-group">
+                <label for="phoneNumber">Telefon</label>
+                <input type="text" id="phoneNumber" [(ngModel)]="currentAddress.phoneNumber" placeholder="05XX XXX XX XX">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">İl*</label>
+                  <input type="text" id="city" [(ngModel)]="currentAddress.city" placeholder="İl" required>
+                </div>
+                <div class="form-group">
+                  <label for="state">İlçe</label>
+                  <input type="text" id="state" [(ngModel)]="currentAddress.state" placeholder="İlçe">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="postalCode">Posta Kodu*</label>
+                <input type="text" id="postalCode" [(ngModel)]="currentAddress.postalCode" placeholder="Posta Kodu" required>
+              </div>
+              <div class="form-group">
+                <label for="addressLine1">Adres Detayı*</label>
+                <textarea id="addressLine1" [(ngModel)]="currentAddress.addressLine1" rows="3" placeholder="Mahalle, sokak, bina no, daire no vb." required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="addressLine2">Adres Detayı (Devam)</label>
+                <textarea id="addressLine2" [(ngModel)]="currentAddress.addressLine2" rows="2" placeholder="Ek adres bilgileri (opsiyonel)"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="country">Ülke*</label>
+                <input type="text" id="country" [(ngModel)]="currentAddress.country" placeholder="Ülke" required>
+              </div>
+              <div class="form-group checkbox">
+                <input type="checkbox" id="isDefault" [(ngModel)]="currentAddress.isDefault">
+                <label for="isDefault">Varsayılan adres olarak kaydet</label>
+              </div>
+              <div class="form-info">
+                <small>* ile işaretli alanlar zorunludur</small>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary" (click)="saveAddress()">Kaydet</button>
+                <button class="btn" (click)="cancelAddressForm()">İptal</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Adres listesi -->
+          <ng-container *ngIf="!showingAddressForm">
+            <p>Kayıtlı adresleriniz burada görüntülenecektir.</p>
+
+            <!-- Kayıtlı adres listesi -->
+            <div class="address-list" *ngIf="addresses.length > 0">
+              <div class="address-card" *ngFor="let address of addresses">
+                <div class="address-header">
+                  <h4>{{ address.addressName || 'Adres' }} <span *ngIf="address.isDefault" class="default-badge">Varsayılan</span></h4>
+                </div>
+                <div class="address-content">
+                  <p class="recipient"><strong>{{ address.recipientName }}</strong></p>
+                  <p class="address-details">{{ address.addressLine1 }}</p>
+                  <p *ngIf="address.addressLine2" class="address-details">{{ address.addressLine2 }}</p>
+                  <p class="location">{{ address.state ? address.state + ', ' : '' }}{{ address.city }}, {{ address.postalCode }}</p>
+                  <p class="country">{{ address.country }}</p>
+                  <p *ngIf="address.phoneNumber" class="phone">Tel: {{ address.phoneNumber }}</p>
+                </div>
+                <div class="address-actions">
+                  <button class="btn btn-sm" (click)="editAddress(address)">Düzenle</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteAddress(address.id!)">Sil</button>
+                  <button class="btn btn-sm btn-default" *ngIf="!address.isDefault" (click)="setDefaultAddress(address.id!)">Varsayılan Yap</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="no-addresses-message" *ngIf="addresses.length === 0">
+              <i class="fas fa-map-marker-alt"></i>
+              <p>Henüz adres eklememiş görünüyorsunuz</p>
+              <button class="btn btn-primary" (click)="showAddressForm()">Yeni Adres Ekle</button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Ödeme yöntemleri bölümü -->
+      <div *ngIf="activeSection === 'payments'">
+        <h3>Ödeme Yöntemlerim</h3>
+        <div class="payments-section">
+          <p>Kayıtlı ödeme yöntemleriniz burada görüntülenecektir.</p>
+          <div class="no-payments-message">
+            <i class="fas fa-credit-card"></i>
+            <p>Henüz ödeme yöntemi eklenmemiş</p>
+            <button class="btn btn-primary">Yeni Ödeme Yöntemi Ekle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ayarlar bölümü -->
+      <div *ngIf="activeSection === 'settings'">
+        <h3>Hesap Ayarları</h3>
+        <div class="settings-section">
+          <div class="setting-item">
+            <div class="setting-label">
+              <h4>Bildirimler</h4>
+              <p>E-posta bildirimleri ve anlık bildirimler için tercihleri yönetin</p>
+            </div>
+            <div class="setting-action">
+              <button class="btn">Düzenle</button>
+            </div>
+          </div>
+          <div class="setting-item">
+            <div class="setting-label">
+              <h4>Gizlilik</h4>
+              <p>Hesap gizlilik ayarlarını düzenleyin</p>
+            </div>
+            <div class="setting-action">
+              <button class="btn">Düzenle</button>
+            </div>
+          </div>
+          <div class="setting-item danger-zone">
+            <div class="setting-label">
+              <h4>Hesabı Sil</h4>
+              <p>Tüm hesap verilerinizi kalıcı olarak siler</p>
+            </div>
+            <div class="setting-action">
+              <button class="btn btn-danger">Hesabı Sil</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kullanıcı oturum açmamışsa -->
+  <div class="not-logged-in" *ngIf="!currentUser && !loading">
+    <p>Bu sayfayı görüntülemek için giriş yapmalısınız.</p>
+    <a [routerLink]="['/login']" class="btn">Giriş Yap</a>
+  </div>
+
+  <!-- Sipariş Detayları Modal -->
+  <div class="order-details-modal" *ngIf="showOrderDetails && selectedOrder">
+    <div class="modal-backdrop" (click)="closeOrderDetails()"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Sipariş Detayları</h3>
+        <button class="close-button" (click)="closeOrderDetails()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="order-info">
+          <p><strong>Sipariş No:</strong> {{ selectedOrder.orderNumber }}</p>
+          <p><strong>Sipariş ID:</strong> {{ selectedOrder.id }}</p>
+          <p><strong>Tarih:</strong> {{ selectedOrder.createdAt | date:'dd.MM.yyyy HH:mm' }}</p>
+          <p><strong>Durum:</strong> <span [ngClass]="selectedOrder.status.toLowerCase()">{{ selectedOrder.status }}</span></p>
+          <p><strong>Ödeme Durumu:</strong> {{ selectedOrder.paymentStatus }}</p>
+        </div>
+
+        <div class="seller-info" *ngFor="let item of selectedOrder.items">
+          <p *ngIf="item.sellerId"><strong>Satıcı ID:</strong> {{ item.sellerId }}</p>
+        </div>
+
+        <div class="address-info">
+          <h4>Teslimat Adresi</h4>
+          <div class="address-card" *ngIf="selectedOrder.shippingAddress">
+            <p><strong>{{ selectedOrder.shippingAddress.recipientName }}</strong></p>
+            <p>{{ selectedOrder.shippingAddress.addressLine1 }}</p>
+            <p *ngIf="selectedOrder.shippingAddress.addressLine2">{{ selectedOrder.shippingAddress.addressLine2 }}</p>
+            <p>{{ selectedOrder.shippingAddress.state ? selectedOrder.shippingAddress.state + ', ' : '' }}{{ selectedOrder.shippingAddress.city }}, {{ selectedOrder.shippingAddress.postalCode }}</p>
+            <p>{{ selectedOrder.shippingAddress.country }}</p>
+            <p *ngIf="selectedOrder.shippingAddress.phoneNumber">Tel: {{ selectedOrder.shippingAddress.phoneNumber }}</p>
+          </div>
+        </div>
+
+        <div class="items-list">
+          <h4>Sipariş Ürünleri</h4>
+          <div class="item" *ngFor="let item of selectedOrder.items">
+            <div class="item-image" *ngIf="item.productImage">
+              <img [src]="item.productImage" [alt]="item.productName">
+            </div>
+            <div class="item-details">
+              <p class="item-name">{{ item.productName }}</p>
+              <p class="item-price">₺{{ item.price | number:'1.2-2' }} x {{ item.quantity }}</p>
+              <p class="item-total">Toplam: ₺{{ item.subtotal | number:'1.2-2' }}</p>
+              <p class="item-status">Durum: <span [ngClass]="item.status ? item.status.toLowerCase() : selectedOrder.status.toLowerCase()">{{ item.status || selectedOrder.status }}</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="price-summary">
+          <div class="summary-item">
+            <span>Ara Toplam:</span>
+            <span>₺{{ selectedOrder.totalPrice | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-item" *ngIf="selectedOrder.discountAmount && selectedOrder.discountAmount > 0">
+            <span>İndirim:</span>
+            <span>-₺{{ selectedOrder.discountAmount | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Kargo:</span>
+            <span>₺{{ selectedOrder.shippingPrice | number:'1.2-2' }}</span>
+          </div>
+          <div class="summary-item total">
+            <span>Toplam:</span>
+            <span>₺{{ selectedOrder.totalAmount | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" (click)="closeOrderDetails()">Kapat</button>
+      </div>
+    </div>
+  </div>
+</div>
+

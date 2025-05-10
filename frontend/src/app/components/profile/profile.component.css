@@ -1,0 +1,1013 @@
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 500;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.profile-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.profile-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.profile-title {
+  flex: 1;
+}
+
+.profile-title h3 {
+  margin: 0 0 5px 0;
+  font-size: 24px;
+  color: #333;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.profile-title p {
+  margin: 0;
+  color: #666;
+}
+
+.user-role {
+  background-color: #e3f2fd;
+  color: #1976d2;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background-color: #1976d2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+}
+
+.btn-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #d32f2f;
+}
+
+.profile-edit-form,
+.password-change-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.form-hint {
+  color: #666;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+
+.profile-details {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #eee;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-value {
+  color: #333;
+}
+
+.no-orders-message,
+.no-addresses-message,
+.no-payments-message {
+  text-align: center;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.no-orders-message i,
+.no-addresses-message i,
+.no-payments-message i {
+  font-size: 48px;
+  color: #ccc;
+  margin-bottom: 15px;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.setting-item:last-child {
+  border-bottom: none;
+}
+
+.setting-label h4 {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.setting-label p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.danger-zone {
+  background-color: #ffebee;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.danger-zone .setting-label h4 {
+  color: #d32f2f;
+}
+
+.not-logged-in {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.not-logged-in p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Account bölüm navigasyonu */
+.account-content {
+  display: flex;
+  gap: 30px;
+}
+
+.account-navigation {
+  flex: 0 0 250px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  align-self: flex-start;
+}
+
+.nav-item {
+  padding: 15px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-item:last-child {
+  border-bottom: none;
+}
+
+.nav-item i {
+  color: #666;
+  width: 20px;
+  text-align: center;
+}
+
+.nav-item:hover {
+  background-color: #f9f9f9;
+}
+
+.nav-item.active {
+  background-color: #f0f7ff;
+  color: #1976d2;
+  font-weight: 500;
+  border-left: 3px solid #1976d2;
+}
+
+.nav-item.active i {
+  color: #1976d2;
+}
+
+/* İçerik bölümü */
+.account-section {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+.account-section h3 {
+  margin: 0 0 20px 0;
+  color: #333;
+  font-weight: 500;
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+/* Mobil görünüm için düzenlemeler */
+@media (max-width: 768px) {
+  .account-content {
+    flex-direction: column;
+  }
+
+  .account-navigation {
+    flex: none;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .nav-item {
+    padding: 10px 15px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .setting-action {
+    width: 100%;
+  }
+
+  .setting-action .btn {
+    width: 100%;
+  }
+}
+
+/* Adres formu stilleri */
+.address-form-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.address-form .form-group {
+  margin-bottom: 10px;
+}
+
+.address-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* Zorunlu alanlar için yıldız */
+.address-form label[for="addressLine1"]::after,
+.address-form label[for="city"]::after,
+.address-form label[for="postalCode"]::after,
+.address-form label[for="country"]::after,
+.address-form label[for="recipientName"]::after {
+  content: " *";
+  color: #d9534f;
+}
+
+.address-form input,
+.address-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.address-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.address-form .form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.address-form .form-row .form-group {
+  flex: 1;
+}
+
+.address-form .checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.address-form .checkbox input {
+  width: auto;
+  margin-right: 8px;
+}
+
+.address-form .checkbox label {
+  margin-bottom: 0;
+}
+
+.address-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.address-form .form-info {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.no-addresses-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6c757d;
+}
+
+.no-addresses-message i {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #adb5bd;
+}
+
+.no-addresses-message p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Adres Listesi Stilleri */
+.address-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.address-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.3s ease;
+  background-color: #fff;
+  position: relative;
+}
+
+.address-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.address-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 8px;
+}
+
+.address-header h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.default-badge {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+}
+
+.address-content {
+  margin-bottom: 16px;
+}
+
+.address-content p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.recipient {
+  font-size: 15px !important;
+  color: #333 !important;
+}
+
+.address-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.btn-default {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn-default:hover {
+  background-color: #e9ecef;
+}
+
+.btn-danger {
+  background-color: #ff5252;
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #ff3333;
+}
+
+/* Duyarlı Tasarım için Ek Stiller */
+@media (max-width: 768px) {
+  .address-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sipariş listesi stil tanımları */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-number {
+  font-weight: bold;
+  color: #495057;
+}
+
+.order-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.order-status {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.order-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.order-status.processing {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.order-status.shipped {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.order-status.delivered {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.order-status.cancelled {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.order-details {
+  padding: 15px;
+}
+
+.order-items {
+  margin-bottom: 15px;
+}
+
+.order-items .item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-items .item:last-child {
+  border-bottom: none;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.item-price {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.order-summary {
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.order-summary p {
+  margin: 5px 0;
+}
+
+.order-actions {
+  padding: 15px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  gap: 10px;
+}
+
+/* Yükleniyor göstergesi */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #007bff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Boş sipariş göstergesi */
+.no-orders-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.no-orders-message i {
+  font-size: 3rem;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+.no-orders-message p {
+  color: #495057;
+  margin-bottom: 20px;
+}
+
+/* Sipariş detayları modal stil tanımları */
+.order-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1002;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-weight: 500;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.close-button:hover {
+  color: #dc3545;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 15px 20px;
+  border-top: 1px solid #e9ecef;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Sipariş bilgileri bölümleri */
+.order-info {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-info p {
+  margin: 5px 0;
+}
+
+.seller-info {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.address-info {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.address-info h4 {
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: 500;
+}
+
+.address-card {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.address-card p {
+  margin: 5px 0;
+}
+
+.items-list {
+  margin-bottom: 20px;
+}
+
+.items-list h4 {
+  margin-bottom: 15px;
+  color: #333;
+  font-weight: 500;
+}
+
+.items-list .item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.items-list .item:last-child {
+  border-bottom: none;
+}
+
+.items-list .item-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.items-list .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.items-list .item-details {
+  flex: 1;
+}
+
+.items-list .item-name {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.items-list .item-price {
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.items-list .item-total {
+  font-weight: 500;
+  color: #495057;
+}
+
+.price-summary {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.summary-item:last-child {
+  margin-bottom: 0;
+}
+
+.summary-item.total {
+  font-weight: bold;
+  border-top: 1px solid #dee2e6;
+  padding-top: 10px;
+  margin-top: 10px;
+  font-size: 18px;
+  color: #212529;
+}
+
+/* Duyarlı Tasarım */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    max-height: 95vh;
+  }
+
+  .items-list .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .items-list .item-image {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Ürün durumu için stiller */
+.item-status {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.item-status span {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Sipariş durumu stilleri */
+.pending {
+  background-color: #FFF8E6;
+  color: #F7B924;
+}
+
+.processing {
+  background-color: #E3F2FD;
+  color: #2196F3;
+}
+
+.confirmed {
+  background-color: #E8F5E9;
+  color: #4CAF50;
+}
+
+.shipped {
+  background-color: #EDE7F6;
+  color: #673AB7;
+}
+
+.delivered {
+  background-color: #E8F5E9;
+  color: #388E3C;
+}
+
+.cancelled {
+  background-color: #FEEBEE;
+  color: #F44336;
+}
+
+.returned {
+  background-color: #EDE7F6;
+  color: #673AB7;
+}

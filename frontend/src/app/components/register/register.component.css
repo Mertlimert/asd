@@ -1,0 +1,196 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  padding: 30px;
+  background-color: #f8f9fa;
+}
+
+.register-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 550px;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, #5754a8, #9b59b6);
+}
+
+.register-card h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #f9fafc;
+}
+
+.form-group input.invalid {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 1px #e53e3e;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #5754a8;
+  box-shadow: 0 0 0 2px rgba(87, 84, 168, 0.2);
+  background-color: #fff;
+}
+
+.error-message {
+  color: #e53e3e;
+  font-size: 0.875rem;
+  margin-top: 0.375rem;
+  display: block;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 1rem;
+  background-color: #5754a8;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background-color: #4a4996;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(87, 84, 168, 0.15);
+}
+
+button[type="submit"]:disabled {
+  background-color: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: #5754a8;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.login-link a:hover {
+  color: #4a4996;
+  text-decoration: underline;
+}
+
+.role-selection {
+  display: flex;
+  gap: 25px;
+  margin-top: 10px;
+}
+
+.role-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+  accent-color: #5754a8;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+}
+
+.role-option label {
+  cursor: pointer;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+/* Floating labels effect (optional enhancement) */
+.floating-label {
+  position: relative;
+}
+
+.floating-label input {
+  padding: 1.2rem 0.8rem 0.6rem;
+}
+
+.floating-label label {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  transition: all 0.2s;
+  pointer-events: none;
+}
+
+.floating-label input:focus ~ label,
+.floating-label input:not(:placeholder-shown) ~ label {
+  top: 0.4rem;
+  font-size: 0.75rem;
+  color: #5754a8;
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .register-card {
+    padding: 2rem 1.5rem;
+  }
+}

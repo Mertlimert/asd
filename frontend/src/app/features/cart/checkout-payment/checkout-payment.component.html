@@ -1,0 +1,95 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>Ödeme Yöntemi</h1>
+    <div class="checkout-steps">
+      <div class="step completed">1. Adres</div>
+      <div class="step active">2. Ödeme</div>
+      <div class="step">3. Onay</div>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div class="checkout-content">
+    <div class="payment-section">
+      <div class="section-header">
+        <h2>Ödeme Yöntemi Seçin</h2>
+      </div>
+
+      <div class="payment-methods">
+        <div
+          *ngFor="let method of paymentMethods"
+          class="payment-method-card"
+          [class.selected]="selectedPaymentMethod === method"
+          (click)="selectPaymentMethod(method)"
+        >
+          <div class="payment-method-icon">
+            <i class="fas" [ngClass]="getPaymentMethodIcon(method)"></i>
+          </div>
+          <div class="payment-method-label">
+            {{ getPaymentMethodLabel(method) }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Kredi Kartı Form -->
+      <div class="payment-info" *ngIf="selectedPaymentMethod === 'CREDIT_CARD'">
+        <p>
+          <i class="fas fa-info-circle"></i>
+          Kredi kartı ödemeleriniz Stripe ödeme sistemi üzerinden güvenle gerçekleştirilmektedir.
+          Siparişinizi onayladıktan sonra Stripe ödeme sayfasına yönlendirileceksiniz.
+        </p>
+        <p>
+          <i class="fas fa-lock"></i>
+          Kart bilgileriniz bizimle paylaşılmaz, doğrudan Stripe güvenli ödeme altyapısı üzerinden işlenir.
+        </p>
+      </div>
+
+      <!-- Kapıda Ödeme Açıklaması -->
+      <div class="payment-info" *ngIf="selectedPaymentMethod === 'CASH_ON_DELIVERY'">
+        <p>
+          <i class="fas fa-info-circle"></i>
+          Siparişinizi teslim aldığınızda, teslimatı yapan kuryeye ödeme yapabilirsiniz.
+          Nakit ve kredi kartı ile ödeme kabul edilmektedir.
+        </p>
+        <p class="fee-info">
+          <strong>Not:</strong> Kapıda ödeme seçeneği için 5₺ hizmet bedeli eklenecektir.
+        </p>
+      </div>
+
+      <!-- Banka Transferi Açıklaması -->
+      <div class="payment-info" *ngIf="selectedPaymentMethod === 'BANK_TRANSFER'">
+        <p>
+          <i class="fas fa-info-circle"></i>
+          Siparişinizi verdikten sonra, aşağıdaki banka hesaplarına EFT/Havale yapabilirsiniz.
+          Ödemeniz onaylandıktan sonra siparişiniz hazırlanacaktır.
+        </p>
+        <div class="bank-accounts">
+          <div class="bank-account">
+            <div class="bank-name">Ziraat Bankası</div>
+            <div class="account-info">
+              <div>Hesap Sahibi: E-Ticaret A.Ş.</div>
+              <div>IBAN: TR12 0001 0012 3456 7890 1234 56</div>
+            </div>
+          </div>
+          <div class="bank-account">
+            <div class="bank-name">Garanti Bankası</div>
+            <div class="account-info">
+              <div>Hesap Sahibi: E-Ticaret A.Ş.</div>
+              <div>IBAN: TR98 0006 2000 1234 5678 9012 34</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-actions">
+    <button class="btn-back" routerLink="/checkout/address">Adres Seçimine Dön</button>
+    <button class="btn-continue" (click)="proceedToConfirmation()">
+      Siparişi Onayla
+    </button>
+  </div>
+</div>

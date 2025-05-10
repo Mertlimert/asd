@@ -1,0 +1,119 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>Sipariş Onayı</h1>
+    <div class="checkout-steps">
+      <div class="step completed">1. Adres</div>
+      <div class="step completed">2. Ödeme</div>
+      <div class="step active">3. Onay</div>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Sipariş bilgileri yükleniyor...</p>
+  </div>
+
+  <div class="checkout-content" *ngIf="!loading">
+    <div class="order-summary-section">
+      <div class="section-header">
+        <h2>Sipariş Özeti</h2>
+      </div>
+
+      <div class="order-items">
+        <table class="items-table">
+          <thead>
+            <tr>
+              <th>Ürün</th>
+              <th>Miktar</th>
+              <th>Fiyat</th>
+              <th>Toplam</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems">
+              <td class="product-info">
+                <div class="product-image">
+                  <img [src]="item.product.image_url" [alt]="item.product.name">
+                </div>
+                <div class="product-details">
+                  <h3>{{ item.product.name }}</h3>
+                </div>
+              </td>
+              <td class="item-quantity">{{ item.quantity }}</td>
+              <td class="item-price">{{ item.product.price | currency:'₺' }}</td>
+              <td class="item-subtotal">{{ item.subtotal | currency:'₺' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="order-details-container">
+      <div class="shipping-details">
+        <h3>Teslimat Adresi</h3>
+        <div class="address-card" *ngIf="shippingAddress">
+          <div class="address-recipient">{{ shippingAddress.recipientName }}</div>
+          <div class="address-details">
+            <p>{{ shippingAddress.addressLine1 }}</p>
+            <p *ngIf="shippingAddress.addressLine2">{{ shippingAddress.addressLine2 }}</p>
+            <p>{{ shippingAddress.city }}, {{ shippingAddress.state }} {{ shippingAddress.postalCode }}</p>
+            <p>{{ shippingAddress.country }}</p>
+            <p class="phone">{{ shippingAddress.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="billing-details" *ngIf="billingAddress && billingAddress.id !== shippingAddress?.id">
+        <h3>Fatura Adresi</h3>
+        <div class="address-card">
+          <div class="address-recipient">{{ billingAddress.recipientName }}</div>
+          <div class="address-details">
+            <p>{{ billingAddress.addressLine1 }}</p>
+            <p *ngIf="billingAddress.addressLine2">{{ billingAddress.addressLine2 }}</p>
+            <p>{{ billingAddress.city }}, {{ billingAddress.state }} {{ billingAddress.postalCode }}</p>
+            <p>{{ billingAddress.country }}</p>
+            <p class="phone">{{ billingAddress.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-details">
+        <h3>Ödeme Yöntemi</h3>
+        <div class="payment-info-card">
+          <p class="payment-method">{{ getPaymentMethodLabel() }}</p>
+          <p class="card-info" *ngIf="paymentMethod === 'CREDIT_CARD'">{{ getCardInfo() }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-summary">
+      <div class="summary-row">
+        <span>Ara Toplam</span>
+        <span>{{ totalPrice | currency:'₺' }}</span>
+      </div>
+      <div class="summary-row" *ngIf="shippingPrice > 0">
+        <span>Kapıda Ödeme Ücreti</span>
+        <span>{{ shippingPrice | currency:'₺' }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Toplam</span>
+        <span>{{ (totalPrice + shippingPrice) | currency:'₺' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-actions">
+    <button class="btn-back" routerLink="/checkout/payment" [disabled]="orderLoading">Ödeme Yöntemine Dön</button>
+    <button class="btn-complete" (click)="placeOrder()" [disabled]="loading || orderLoading || !shippingAddress">
+      <span *ngIf="!orderLoading">Siparişi Tamamla</span>
+      <span *ngIf="orderLoading">
+        <div class="button-spinner"></div>
+        İşleniyor...
+      </span>
+    </button>
+  </div>
+</div>

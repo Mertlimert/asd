@@ -1,0 +1,56 @@
+<div class="success-container">
+  <div class="success-card">
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+
+    <div class="success-message">
+      <h1>Siparişiniz Tamamlandı!</h1>
+      <p>Sipariş numaranız: <strong>{{ orderNumber }}</strong></p>
+      <p>Siparişiniz başarıyla oluşturuldu. Siparişinizin durumunu "Siparişlerim" sayfasından takip edebilirsiniz.</p>
+    </div>
+
+    <div class="success-details">
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="fas fa-inbox"></i>
+        </div>
+        <div class="detail-text">
+          <h3>Sipariş Onayı</h3>
+          <p>Sipariş onayınız e-posta adresinize gönderildi.</p>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="detail-text">
+          <h3>Kargoya Verilecek</h3>
+          <p>Siparişiniz hazırlandıktan sonra kargoya verilecektir.</p>
+        </div>
+      </div>
+
+      <div class="detail-item">
+        <div class="detail-icon">
+          <i class="fas fa-headset"></i>
+        </div>
+        <div class="detail-text">
+          <h3>7/24 Destek</h3>
+          <p>Sorularınız için müşteri hizmetlerimiz ile iletişime geçebilirsiniz.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="success-actions">
+      <button class="btn-view-orders" (click)="viewOrders()">
+        <i class="fas fa-file-alt"></i>
+        Siparişlerimi Görüntüle
+      </button>
+      <button class="btn-continue-shopping" (click)="continueShopping()">
+        <i class="fas fa-shopping-bag"></i>
+        Alışverişe Devam Et
+      </button>
+    </div>
+  </div>
+</div>

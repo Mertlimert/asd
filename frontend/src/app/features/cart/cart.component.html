@@ -1,0 +1,80 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h1>Alışveriş Sepeti</h1>
+  </div>
+
+  <div *ngIf="loading$ | async" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Sepetiniz yükleniyor...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <ng-container *ngIf="cartItems$ | async as cartItems">
+    <div *ngIf="cartItems.length === 0 && !(loading$ | async)" class="empty-cart">
+      <div class="empty-cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+      </div>
+      <h2>Sepetiniz boş</h2>
+      <p>Alışverişe başlamak için ürünleri keşfedin.</p>
+      <button class="btn-primary" routerLink="/products">Alışverişe Başla</button>
+    </div>
+
+    <div *ngIf="cartItems.length > 0" class="cart-content">
+      <div class="cart-items">
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <div class="item-image">
+            <img [src]="item.product?.image_url" [alt]="item.product?.name">
+          </div>
+          <div class="item-details">
+            <h3>{{ item.product?.name }}</h3>
+            <p class="item-price">{{ item.product?.price | currency:'₺' }}</p>
+            <p class="item-stock" *ngIf="item.product?.stock_quantity && item.product.stock_quantity < 10">
+              <span class="stock-warning">Stokta sadece {{ item.product.stock_quantity }} adet kaldı!</span>
+            </p>
+          </div>
+          <div class="item-quantity">
+            <button class="qty-btn" (click)="updateQuantity(item, item.quantity - 1)" [disabled]="item.quantity <= 1">-</button>
+            <span class="qty-value">{{ item.quantity }}</span>
+            <button class="qty-btn" (click)="updateQuantity(item, item.quantity + 1)" [disabled]="item.quantity >= (item.product?.stock_quantity || 0)">+</button>
+          </div>
+          <div class="item-subtotal">
+            <p>{{ item.subtotal | currency:'₺' }}</p>
+          </div>
+          <div class="item-remove">
+            <button class="btn-remove" (click)="removeItem(item.product?.id || 0)" [disabled]="!item.product?.id">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-header">
+          <h2>Sipariş Özeti</h2>
+        </div>
+        <div class="summary-content">
+          <div class="summary-row">
+            <span>Toplam Ürün ({{ getTotalItems() }} adet)</span>
+            <span>{{ getTotalPrice() | currency:'₺' }}</span>
+          </div>
+          <div class="summary-row">
+            <span>Kargo</span>
+            <span>Ücretsiz</span>
+          </div>
+          <div class="summary-row total">
+            <span>Toplam</span>
+            <span>{{ getTotalPrice() | currency:'₺' }}</span>
+          </div>
+        </div>
+        <div class="summary-actions">
+          <button class="btn-checkout" (click)="proceedToCheckout()">Ödemeye Geç</button>
+          <button class="btn-continue-shopping" routerLink="/products">Alışverişe Devam Et</button>
+          <button class="btn-clear-cart" (click)="clearCart()">Sepeti Temizle</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

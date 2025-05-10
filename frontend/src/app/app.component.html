@@ -1,0 +1,71 @@
+<header class="main-header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <a [routerLink]="['/']">Ana Sayfa</a>
+      </div>
+
+      <div class="search-bar">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Ürün ara...">
+        <button class="search-button" (click)="onSearch()">Ara</button>
+      </div>
+
+      <nav class="main-nav">
+        <a [routerLink]="['/cart']" class="nav-link cart-link">
+          <span class="nav-icon">🛒</span>
+          <span>Sepet ({{cartItemCount}})</span>
+        </a>
+
+        <ng-container *ngIf="!currentUser">
+          <a [routerLink]="['/login']" class="nav-link">
+            <span class="nav-icon">👤</span>
+            <span>Giriş Yap</span>
+          </a>
+          <a [routerLink]="['/register']" class="nav-link">
+            <span class="nav-icon">✍️</span>
+            <span>Kayıt Ol</span>
+          </a>
+        </ng-container>
+
+        <ng-container *ngIf="currentUser">
+          <div class="user-dropdown">
+            <button class="dropdown-toggle" type="button" (click)="toggleDropdown()">
+              <span class="nav-icon">👤</span>
+              <span class="user-name">{{ currentUser.username }}</span>
+              <span class="dropdown-icon ms-1">▼</span>
+            </button>
+            <div class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
+              <a [routerLink]="['/profile']" class="dropdown-item" (click)="isDropdownOpen = false">
+                <span class="item-icon">👤</span>
+                <span>Profil</span>
+              </a>
+              <a [routerLink]="['/account/orders']" class="dropdown-item" (click)="isDropdownOpen = false">
+                <span class="item-icon">📦</span>
+                <span>Siparişlerim</span>
+              </a>
+              <a [routerLink]="['/account/addresses']" class="dropdown-item" (click)="isDropdownOpen = false">
+                <span class="item-icon">📍</span>
+                <span>Adreslerim</span>
+              </a>
+              <a *ngIf="isSeller()" [routerLink]="['/seller']" class="dropdown-item" (click)="isDropdownOpen = false">
+                <span class="item-icon">🏪</span>
+                <span>Satıcı Paneli</span>
+              </a>
+              <a *ngIf="isAdmin()" [routerLink]="['/admin']" class="dropdown-item" (click)="isDropdownOpen = false">
+                <span class="item-icon">⚙️</span>
+                <span>Admin Paneli</span>
+              </a>
+              <button (click)="logout()" class="dropdown-item logout-btn">
+                <span class="item-icon">🚪</span>
+                <span>Çıkış Yap</span>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<app-alert></app-alert>
+<router-outlet></router-outlet>

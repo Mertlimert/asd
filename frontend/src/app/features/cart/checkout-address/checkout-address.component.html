@@ -1,0 +1,225 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h1>Teslimat Adresi</h1>
+    <div class="checkout-steps">
+      <div class="step active">1. Adres</div>
+      <div class="step">2. Ödeme</div>
+      <div class="step">3. Onay</div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Adresler yükleniyor...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <div class="checkout-content" *ngIf="!loading">
+    <div class="address-section">
+      <div class="section-header">
+        <h2>Teslimat Adresi Seç</h2>
+        <button class="btn-add-address" (click)="toggleAddressForm()">
+          <i class="fas fa-plus"></i> {{ showAddressForm ? 'Vazgeç' : 'Yeni Adres Ekle' }}
+        </button>
+      </div>
+
+      <div class="address-form-container" *ngIf="showAddressForm">
+        <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="recipientName">Alıcı Adı <span class="required">*</span></label>
+              <input
+                type="text"
+                id="recipientName"
+                formControlName="recipientName"
+                [ngClass]="{'invalid': addressForm.get('recipientName')?.invalid && addressForm.get('recipientName')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('recipientName')?.invalid && addressForm.get('recipientName')?.touched">
+                Alıcı adı gereklidir
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="addressName">Adres Başlığı <span class="required">*</span></label>
+              <input
+                type="text"
+                id="addressName"
+                formControlName="addressName"
+                placeholder="Örn: Ev, İş"
+                [ngClass]="{'invalid': addressForm.get('addressName')?.invalid && addressForm.get('addressName')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('addressName')?.invalid && addressForm.get('addressName')?.touched">
+                Adres başlığı gereklidir
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addressLine1">Adres Satırı 1 <span class="required">*</span></label>
+            <input
+              type="text"
+              id="addressLine1"
+              formControlName="addressLine1"
+              [ngClass]="{'invalid': addressForm.get('addressLine1')?.invalid && addressForm.get('addressLine1')?.touched}"
+            >
+            <div class="error-hint" *ngIf="addressForm.get('addressLine1')?.invalid && addressForm.get('addressLine1')?.touched">
+              Adres gereklidir
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addressLine2">Adres Satırı 2</label>
+            <input type="text" id="addressLine2" formControlName="addressLine2">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">Şehir <span class="required">*</span></label>
+              <input
+                type="text"
+                id="city"
+                formControlName="city"
+                [ngClass]="{'invalid': addressForm.get('city')?.invalid && addressForm.get('city')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('city')?.invalid && addressForm.get('city')?.touched">
+                Şehir gereklidir
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="state">İlçe <span class="required">*</span></label>
+              <input
+                type="text"
+                id="state"
+                formControlName="state"
+                [ngClass]="{'invalid': addressForm.get('state')?.invalid && addressForm.get('state')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('state')?.invalid && addressForm.get('state')?.touched">
+                İlçe gereklidir
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="postalCode">Posta Kodu <span class="required">*</span></label>
+              <input
+                type="text"
+                id="postalCode"
+                formControlName="postalCode"
+                [ngClass]="{'invalid': addressForm.get('postalCode')?.invalid && addressForm.get('postalCode')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('postalCode')?.invalid && addressForm.get('postalCode')?.touched">
+                Posta kodu gereklidir
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="country">Ülke <span class="required">*</span></label>
+              <input
+                type="text"
+                id="country"
+                formControlName="country"
+                [ngClass]="{'invalid': addressForm.get('country')?.invalid && addressForm.get('country')?.touched}"
+              >
+              <div class="error-hint" *ngIf="addressForm.get('country')?.invalid && addressForm.get('country')?.touched">
+                Ülke gereklidir
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Telefon Numarası <span class="required">*</span></label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              formControlName="phoneNumber"
+              [ngClass]="{'invalid': addressForm.get('phoneNumber')?.invalid && addressForm.get('phoneNumber')?.touched}"
+            >
+            <div class="error-hint" *ngIf="addressForm.get('phoneNumber')?.invalid && addressForm.get('phoneNumber')?.touched">
+              Telefon numarası gereklidir
+            </div>
+          </div>
+
+          <div class="form-check">
+            <input type="checkbox" id="isDefault" formControlName="isDefault">
+            <label for="isDefault">Varsayılan adres olarak kaydet</label>
+          </div>
+
+          <div class="form-buttons">
+            <button type="button" class="btn-cancel" (click)="toggleAddressForm()">İptal</button>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="addresses-list" *ngIf="addresses.length > 0">
+        <div
+          *ngFor="let address of addresses"
+          class="address-card"
+          [class.selected]="selectedAddressId === address.id"
+          (click)="selectAddress(address.id!)"
+        >
+          <div class="address-header">
+            <h3>{{ address.addressName }}</h3>
+            <span *ngIf="address.isDefault" class="default-badge">Varsayılan</span>
+          </div>
+          <div class="address-recipient">{{ address.recipientName }}</div>
+          <div class="address-details">
+            <p>{{ address.addressLine1 }}</p>
+            <p *ngIf="address.addressLine2">{{ address.addressLine2 }}</p>
+            <p>{{ address.city }}, {{ address.state }} {{ address.postalCode }}</p>
+            <p>{{ address.country }}</p>
+            <p class="phone">{{ address.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="no-addresses" *ngIf="addresses.length === 0 && !showAddressForm">
+        <p>Kayıtlı adres bulunamadı.</p>
+        <button class="btn-add-address" (click)="toggleAddressForm()">
+          <i class="fas fa-plus"></i> Yeni Adres Ekle
+        </button>
+      </div>
+    </div>
+
+    <div class="billing-section">
+      <div class="section-header">
+        <h2>Fatura Adresi</h2>
+      </div>
+
+      <div class="form-check billing-check">
+        <input type="checkbox" id="sameBilling" [(ngModel)]="sameBillingAddress">
+        <label for="sameBilling">Teslimat adresi ile aynı</label>
+      </div>
+
+      <div *ngIf="!sameBillingAddress" class="billing-addresses">
+        <div
+          *ngFor="let address of addresses"
+          class="address-card"
+          [class.selected]="selectedBillingAddressId === address.id"
+          (click)="selectBillingAddress(address.id!)"
+        >
+          <div class="address-header">
+            <h3>{{ address.addressName }}</h3>
+          </div>
+          <div class="address-recipient">{{ address.recipientName }}</div>
+          <div class="address-details">
+            <p>{{ address.addressLine1 }}</p>
+            <p *ngIf="address.addressLine2">{{ address.addressLine2 }}</p>
+            <p>{{ address.city }}, {{ address.state }} {{ address.postalCode }}</p>
+            <p>{{ address.country }}</p>
+            <p class="phone">{{ address.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-actions">
+    <button class="btn-back" routerLink="/cart">Sepete Dön</button>
+    <button class="btn-continue" [disabled]="loading" (click)="proceedToPayment()">
+      Ödeme Yöntemine Geç
+    </button>
+  </div>
+</div>

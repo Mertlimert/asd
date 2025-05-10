@@ -1,0 +1,19 @@
+<div class="cart-item">
+  <div class="item-image">
+    <img [src]="item.product.image_url || 'assets/images/placeholder.png'" [alt]="item.product.name">
+  </div>
+  <div class="item-details">
+    <h3>{{item.product.name}}</h3>
+    <p class="item-price">${{item.product.price | number:'1.2-2'}}</p>
+    <p class="item-added" *ngIf="item.addedAt">Added: {{item.addedAt | date:'short'}}</p>
+  </div>
+  <div class="item-quantity">
+    <button class="quantity-btn decrease" (click)="decrementQuantity()">-</button>
+    <span class="quantity">{{item.quantity}}</span>
+    <button class="quantity-btn increase" (click)="incrementQuantity()">+</button>
+  </div>
+  <div class="item-total">
+    <p>${{item.subtotal || (item.product.price * item.quantity) | number:'1.2-2'}}</p>
+  </div>
+  <button class="remove-btn" (click)="onRemove()">Remove</button>
+</div>

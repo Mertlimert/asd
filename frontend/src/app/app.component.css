@@ -1,0 +1,320 @@
+/* Genel konteyner stilleri */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header stilleri */
+.main-header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 15px 0;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.logo a {
+  color: #4a6ee0;
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.logo a:hover {
+  color: #3a5bd0;
+}
+
+/* Arama çubuğu stilleri */
+.search-bar {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  position: relative;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-bar input:focus {
+  border-color: #4a6ee0;
+  box-shadow: 0 0 0 2px rgba(74, 110, 224, 0.1);
+}
+
+.search-button {
+  padding: 0 20px;
+  background-color: #4a6ee0;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.search-button:hover {
+  background-color: #3a5bd0;
+}
+
+/* Ana navigasyon */
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background-color: #f5f5f5;
+  color: #4a6ee0;
+}
+
+.nav-icon {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.cart-link {
+  position: relative;
+}
+
+/* Kullanıcı dropdown menü */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-toggle:hover {
+  background-color: #f5f5f5;
+}
+
+.user-name {
+  margin-right: 5px;
+}
+
+.dropdown-icon {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 8px 0;
+  z-index: 1001;
+  display: none;
+}
+
+/* Hover yerine gösterme sınıfı ile kontrol */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Hover ile açılabilme özelliğini kaldırıyoruz */
+/*.user-dropdown:hover .dropdown-menu {
+  display: block;
+}*/
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #4a6ee0;
+}
+
+.item-icon {
+  margin-right: 8px;
+  width: 20px;
+  text-align: center;
+}
+
+.logout-btn {
+  border-top: 1px solid #eaeaea;
+  margin-top: 8px;
+  padding-top: 10px;
+  color: #dc3545;
+}
+
+.logout-btn:hover {
+  background-color: #ffebee;
+}
+
+/* Responsive stillendirme */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    order: 1;
+    max-width: 100%;
+    margin: 10px 0;
+  }
+
+  .main-nav {
+    order: 2;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .logo {
+    order: 0;
+    text-align: center;
+  }
+}
+
+/* Main app container */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* Main content area */
+.main-content {
+  flex: 1;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+/* Footer styles */
+.footer {
+  background-color: #f9f9f9;
+  padding: 30px 0;
+  margin-top: auto;
+  border-top: 1px solid #eee;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-section {
+  margin-bottom: 20px;
+  min-width: 200px;
+}
+
+.footer-section h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #4a6ee0;
+}
+
+.copyright {
+  text-align: center;
+  color: #888;
+  padding-top: 20px;
+  width: 100%;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #4a6ee0;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

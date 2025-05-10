@@ -1,0 +1,50 @@
+<div class="cart-container">
+  <h2>Your Shopping Cart</h2>
+
+  <!-- Not logged in message -->
+  <div *ngIf="!isLoggedIn" class="auth-message">
+    <p>Please log in to view your cart</p>
+    <button class="login-btn" (click)="goToLogin()">Log In</button>
+  </div>
+
+  <!-- Loading indicator -->
+  <div *ngIf="isLoggedIn && isLoading" class="loading-indicator">
+    <p>Loading cart...</p>
+  </div>
+
+  <!-- Empty cart message -->
+  <div *ngIf="isLoggedIn && !isLoading && cartItems.length === 0" class="empty-cart">
+    <p>Your cart is empty</p>
+    <a routerLink="/" class="continue-shopping">Continue Shopping</a>
+  </div>
+
+  <!-- Cart content -->
+  <div *ngIf="isLoggedIn && !isLoading && cartItems.length > 0" class="cart-content">
+    <div class="cart-items">
+      <app-cart-item
+        *ngFor="let item of cartItems"
+        [item]="item"
+        (updateQuantity)="updateQuantity(item.product.id, $event)"
+        (removeItem)="removeFromCart(item.product.id)"
+        (stockExceeded)="handleStockExceeded($event)">
+      </app-cart-item>
+    </div>
+
+    <div class="cart-summary">
+      <h3>Order Summary</h3>
+      <div class="summary-row">
+        <span>Items:</span>
+        <span>{{cartItems.length}}</span>
+      </div>
+      <div class="summary-row">
+        <span>Total:</span>
+        <span class="total-price">${{totalPrice | number:'1.2-2'}}</span>
+      </div>
+      <button class="checkout-btn" [disabled]="isLoading || isCheckingOut" (click)="checkout()">
+        <span *ngIf="!isCheckingOut">Proceed to Checkout</span>
+        <span *ngIf="isCheckingOut">Processing...</span>
+      </button>
+      <button class="clear-cart-btn" (click)="clearCart()" [disabled]="isLoading || isCheckingOut">Clear Cart</button>
+    </div>
+  </div>
+</div>
