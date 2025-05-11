@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,13 @@ public class ReturnService {
     
     public List<Return> getReturnsByStatus(ReturnStatus status) {
         return returnRepository.findByStatus(status);
+    }
+    
+    public List<Return> getReturnsBySeller(User seller) {
+        return returnRepository.findAll().stream()
+                .filter(returnRequest -> returnRequest.getReturnItems().stream()
+                        .anyMatch(item -> item.getProduct().getSeller().getId().equals(seller.getId())))
+                .collect(Collectors.toList());
     }
     
     @Transactional

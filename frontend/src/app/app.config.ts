@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors, withFetch, HttpInterceptorFn } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
 import { AuthService } from './services/auth.service';
 
@@ -35,5 +36,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([authInterceptor])
     ),
+    provideAnimations()
   ]
 };

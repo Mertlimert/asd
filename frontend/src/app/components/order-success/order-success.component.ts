@@ -15,33 +15,33 @@ import { AlertService } from '../../services/alert.service';
         <div class="success-icon">
           <i class="checkmark">✓</i>
         </div>
-        <h1>Payment Successful!</h1>
-        <p>Your order #{{orderId}} has been placed successfully.</p>
+        <h1>Ödeme Başarılı!</h1>
+        <p>#{{orderId}} numaralı siparişiniz başarıyla oluşturuldu.</p>
         <div class="order-details" *ngIf="orderDetails">
-          <h3>Order Summary</h3>
+          <h3>Sipariş Özeti</h3>
           <div class="detail-row">
-            <span>Order ID:</span>
+            <span>Sipariş No:</span>
             <span>#{{orderDetails.id}}</span>
           </div>
           <div class="detail-row">
-            <span>Date:</span>
+            <span>Tarih:</span>
             <span>{{orderDetails.orderDate | date:'medium'}}</span>
           </div>
           <div class="detail-row">
-            <span>Total Amount:</span>
+            <span>Toplam Tutar:</span>
             <span>{{orderDetails.totalAmount | currency}}</span>
           </div>
           <div class="detail-row">
-            <span>Status:</span>
+            <span>Durum:</span>
             <span class="status-badge">{{orderDetails.status}}</span>
           </div>
         </div>
         <div class="loading" *ngIf="isLoading">
-          Loading order details...
+          Sipariş detayları yükleniyor...
         </div>
         <div class="action-buttons">
-          <a routerLink="/orders" class="view-orders-btn">View My Orders</a>
-          <a routerLink="/" class="continue-shopping-btn">Continue Shopping</a>
+          <a routerLink="/account/orders" class="view-orders-btn">Siparişlerimi Görüntüle</a>
+          <a routerLink="/" class="continue-shopping-btn">Alışverişe Devam Et</a>
         </div>
       </div>
     </div>
